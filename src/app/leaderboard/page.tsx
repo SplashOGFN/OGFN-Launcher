@@ -51,7 +51,7 @@ export default function LeaderboardPage() {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const res = await apiClient.get(`/leaderboard?type=${activeTab}&limit=10`);
+        const res = await apiClient.get(`/leaderboard?type=${activeTab}`);
         setLeaderboard(res.data.leaderboard || []);
       } catch {
         setLeaderboard([]);
@@ -170,10 +170,14 @@ export default function LeaderboardPage() {
                     <div className="w-6 flex items-center justify-center shrink-0">
                       {rankIcon(entry.rank)}
                     </div>
-                    <div className="w-8 h-8 rounded-md bg-gradient-to-br from-cyan-400/30 to-emerald-400/30 flex items-center justify-center shrink-0">
-                      <span className="text-[10px] font-bold text-cyan-300">
-                        {entry.username.charAt(0).toUpperCase()}
-                      </span>
+                    <div className="w-8 h-8 rounded-full overflow-hidden bg-gradient-to-br from-cyan-400/30 to-emerald-400/30 flex items-center justify-center shrink-0">
+                      {(entry as any).avatar ? (
+                        <img src={(entry as any).avatar} alt={entry.username} className="w-full h-full object-cover" />
+                      ) : (
+                        <span className="text-[10px] font-bold text-cyan-300">
+                          {entry.username.charAt(0).toUpperCase()}
+                        </span>
+                      )}
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-medium text-white truncate">{entry.username}</p>

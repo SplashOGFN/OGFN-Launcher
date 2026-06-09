@@ -15,6 +15,7 @@ import {
 
 export default function LibraryPage() {
   const buildState = useBuildsStore();
+  const [mounted, setMounted] = useState(false);
   const [activeBuild, setActiveBuild] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -35,9 +36,7 @@ export default function LibraryPage() {
   });
 
   useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
+    setMounted(true);
     checkifopen(setActiveBuild);
   }, []);
 
@@ -76,7 +75,7 @@ export default function LibraryPage() {
     await handleCloseBuild(setActiveBuild, setIsDialogOpen);
   };
 
-  const builds = Array.from(buildState?.builds?.values() || []) as IBuild[];
+  const builds = mounted ? (Array.from(buildState?.builds?.values() || []) as IBuild[]) : [];
 
   return (
     <div className="flex h-screen bg-[#05070a] text-white overflow-hidden">

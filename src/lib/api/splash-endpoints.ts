@@ -15,4 +15,6 @@ export const endpoints = {
   GET_GENERATE_ACCOUNT_RESP: `${BASE_URL}/splash/api/v2/launcher/account`,
   GET_ACTIVE_CHECK: `${BASE_URL}/splash/api/v2/launcher/account/active`,
   POST_EDIT_DISPLAYNAME: `${BASE_URL}/splash/api/v2/launcher/account/edit/display`,
+  POST_AVATAR: `${BASE_URL}/profile/avatar`,
+  GET_AVATAR: (accountId: string) => `${BASE_URL}/profile/avatar/${accountId}`,
 } as const;

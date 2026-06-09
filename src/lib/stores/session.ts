@@ -24,6 +24,7 @@ interface SessionActions {
   verify: () => Promise<boolean>;
   setUser: (user: AuthResponse["user"]) => void;
   setLogOut: () => void;
+  setAvatar: (avatar: string) => void;
 }
 
 type SessionStore = SessionData & SessionActions;
@@ -141,6 +142,14 @@ export const useSessionStore = create<SessionStore>()(
 
       setLogOut: (): void => {
         set({ token: "" });
+      },
+
+      setAvatar: (avatar: string): void => {
+        const user = get().user;
+        if (!user) return;
+        const updated = { ...user, avatar };
+        storage.set(STORAGE_CONFIG.user.key, updated);
+        set({ user: updated });
       },
     }),
     {

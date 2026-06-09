@@ -205,9 +205,13 @@ export default function HomePage() {
             <div className="flex items-center gap-3">
               <div className="relative">
                 <div className="h-9 w-9 rounded-full overflow-hidden bg-gradient-to-br from-cyan-400 to-emerald-400 flex items-center justify-center">
-                  <span className="text-xs font-bold text-black">
-                    {(user?.displayName || user?.username || "P").charAt(0).toUpperCase()}
-                  </span>
+                  {(user as any)?.avatar ? (
+                    <img src={(user as any).avatar} alt="avatar" className="w-full h-full object-cover" />
+                  ) : (
+                    <span className="text-xs font-bold text-black">
+                      {(user?.displayName || user?.username || "P").charAt(0).toUpperCase()}
+                    </span>
+                  )}
                 </div>
                 <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-green-500 border-2 border-[#05070a]" />
               </div>

@@ -7,9 +7,8 @@ import { listen } from "@tauri-apps/api/event";
 import { apiClient } from "@/lib/api/client";
 import useBuildsStore from "@/lib/stores/builds";
 
-const appWindow = getCurrentWebviewWindow();
-
 export const launchBuild = async (selectedPath: string, version: string) => {
+  const appWindow = getCurrentWebviewWindow();
   const buildstate = useBuildsStore.getState();
 
   const token = localStorage.getItem("splash.auth.token");
