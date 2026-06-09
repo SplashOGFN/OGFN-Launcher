@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Play, Users } from "lucide-react";
+import { Play, Users, Download, X } from "lucide-react";
 import { useSessionStore } from "@/lib/stores/session";
 import { useAuthStore } from "@/lib/stores/auth";
 import Sidebar from "@/components/layout/Sidebar";
@@ -77,6 +77,10 @@ export default function HomePage() {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [friends, setFriends] = useState<Friend[]>([]);
   const [commits, setCommits] = useState<Commit[]>([]);
+  const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [updateVersion, setUpdateVersion] = useState("");
+  const [updateDismissed, setUpdateDismissed] = useState(false);
+  const [updating, setUpdating] = useState(false);
   const [stats, setStats] = useState<PlayerStats>({
     level: 0,
     xp: 0,
@@ -131,6 +135,18 @@ export default function HomePage() {
     fetchStatus();
     fetchNews();
     fetchFriends();
+
+    const checkForUpdate = async () => {
+      try {
+        const { check } = await import("@tauri-apps/plugin-updater");
+        const update = await check();
+        if (update?.available) {
+          setUpdateAvailable(true);
+          setUpdateVersion(update.version ?? "");
+        }
+      } catch {}
+    };
+    checkForUpdate();
 
     const fetchCommits = async () => {
       try {
@@ -190,6 +206,33 @@ export default function HomePage() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
       >
+        {updateAvailable && !updateDismissed && (
+          <div className="flex items-center justify-between px-5 py-2.5 bg-cyan-500/10 border-b border-cyan-500/20 text-sm">
+            <div className="flex items-center gap-2 text-cyan-300">
+              <Download className="w-4 h-4 shrink-0" />
+              <span>Update available — <strong>v{updateVersion}</strong>. Restart to install.</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={async () => {
+                  try {
+                    setUpdating(true);
+                    const { check } = await import("@tauri-apps/plugin-updater");
+                    const update = await check();
+                    if (update?.available) await update.downloadAndInstall();
+                  } catch { setUpdating(false); }
+                }}
+                disabled={updating}
+                className="px-3 py-1 bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 text-white rounded text-xs font-medium transition-colors"
+              >
+                {updating ? "Installing…" : "Install Now"}
+              </button>
+              <button onClick={() => setUpdateDismissed(true)} className="text-gray-500 hover:text-white transition-colors">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        )}
         <div className="flex justify-between items-center px-6 pt-5 pb-2">
           <div>
             <h1 className="text-2xl font-bold text-white">

@@ -3,6 +3,7 @@ import { Rubik } from "next/font/google";
 import "./globals.css";
 import WindowBar from "@/components/layout/WindowBar";
 import RpcProvider from "@/components/providers/RpcProvider";
+import ConnectionMonitor from "@/components/providers/ConnectionMonitor";
 
 const font = Rubik({
   weight: ["400", "500", "600", "700"],
@@ -26,6 +27,7 @@ export default function RootLayout({
       >
         <WindowBar />
         <RpcProvider />
+        <ConnectionMonitor />
         {children}
       </body>
     </html>
