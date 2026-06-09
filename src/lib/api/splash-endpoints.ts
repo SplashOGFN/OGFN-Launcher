@@ -1,7 +1,7 @@
 const BASE_URL =
   process.env.NODE_ENV === "development"
-    ? "http://127.0.0.1:3551"
-    : "http://127.0.0.1:3551";
+    ? "https://overpower-irritate-dealt.ngrok-free.dev"
+    : "https://overpower-irritate-dealt.ngrok-free.dev";
 
 export const endpoints = {
   GET_BASE_URL: BASE_URL,

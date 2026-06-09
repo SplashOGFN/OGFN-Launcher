@@ -33,7 +33,7 @@ export default function RegisterPage() {
     const setupDeepLink = async () => {
       unlisten = await listen<string>("deep-link", async (event) => {
         const url = event.payload;
-        const urlObj = new URL(url.replace("solaris://", "http://localhost/"));
+        const urlObj = new URL(url.replace("splash://", "http://localhost/"));
         const code = urlObj.searchParams.get("code");
 
         if (!code) return;

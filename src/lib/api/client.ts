@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosError } from "axios";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:3551";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://overpower-irritate-dealt.ngrok-free.dev";
 
 export const apiClient: AxiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -8,6 +8,7 @@ export const apiClient: AxiosInstance = axios.create({
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
+    "ngrok-skip-browser-warning": "true",
   },
 });
 

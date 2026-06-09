@@ -31,7 +31,7 @@ use std::ffi::{ CString };
 use windows::core::PCSTR;
 
 const CREATE_NO_WINDOW: u32 = 0x08000000;
-const BACKEND_URL: &str = "http://127.0.0.1:3551";
+const BACKEND_URL: &str = "https://overpower-irritate-dealt.ngrok-free.dev";
 
 #[tauri::command]
 fn rich_presence(username: String, page: String) {
@@ -286,8 +286,8 @@ fn experience(
             .stdout(Stdio::piped())
             .spawn()
             .map_err(|e| {
-                eprintln!("Error starting Solaris: {}", e);
-                format!("Failed to start Solaris: {}", e)
+                eprintln!("Error starting Splash: {}", e);
+                format!("Failed to start Splash: {}", e)
             })?;
     }
 
@@ -297,7 +297,7 @@ fn experience(
         .args(&fort_args)
         .stdout(Stdio::piped())
         .spawn()
-        .map_err(|e| format!("Failed to start Solaris: {}", e));
+        .map_err(|e| format!("Failed to start Splash: {}", e));
 
     let _ac = std::process::Command
         ::new(fnac)
@@ -305,12 +305,12 @@ fn experience(
         .args(&fort_args)
         .stdout(Stdio::piped())
         .spawn()
-        .map_err(|e| format!("Failed to start Solaris: {}", e));
+        .map_err(|e| format!("Failed to start Splash: {}", e))?;
 
     Ok(true)
 }
 
-const BASE_URL: &str = "https://cdn.solarisfn.org";
+const BASE_URL: &str = "https://overpower-irritate-dealt.ngrok-free.dev ";
 
 #[derive(Debug, Deserialize, Clone)]
 struct ManifestFile {

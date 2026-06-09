@@ -26,22 +26,22 @@ export const handleLaunchBuild = async (
           if (buildState.BubbleBuilds) {
             filesToProcess.push({
               Name: "pakchunkSplashBubble-WindowsNoEditor_P.pak",
-              Url: `${process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:3551"}/files/pakchunkSplashBubble-WindowsNoEditor_P.pak`,
+              Url: `${process.env.NEXT_PUBLIC_API_URL || "https://overpower-irritate-dealt.ngrok-free.dev"}/files/pakchunkSplashBubble-WindowsNoEditor_P.pak`,
               Size: 339,
             });
             filesToProcess.push({
               Name: "pakchunkSplashBubble-WindowsNoEditor_P.utoc",
-              Url: `${process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:3551"}/files/pakchunkSplashBubble-WindowsNoEditor_P.utoc`,
+              Url: `${process.env.NEXT_PUBLIC_API_URL || "https://overpower-irritate-dealt.ngrok-free.dev"}/files/pakchunkSplashBubble-WindowsNoEditor_P.utoc`,
               Size: 6203,
             });
             filesToProcess.push({
               Name: "pakchunkSplashBubble-WindowsNoEditor_P.ucas",
-              Url: `${process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:3551"}/files/pakchunkSplashBubble-WindowsNoEditor_P.ucas`,
+              Url: `${process.env.NEXT_PUBLIC_API_URL || "https://overpower-irritate-dealt.ngrok-free.dev"}/files/pakchunkSplashBubble-WindowsNoEditor_P.ucas`,
               Size: 5743840,
             });
             filesToProcess.push({
               Name: "pakchunkSplashBubble-WindowsNoEditor_P.sig",
-              Url: `${process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:3551"}/files/pakchunkSplashBubble-WindowsNoEditor_P.sig`,
+              Url: `${process.env.NEXT_PUBLIC_API_URL || "https://overpower-irritate-dealt.ngrok-free.dev"}/files/pakchunkSplashBubble-WindowsNoEditor_P.sig`,
               Size: 4660,
             });
           } else {
