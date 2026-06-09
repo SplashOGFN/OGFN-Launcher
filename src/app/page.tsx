@@ -13,7 +13,7 @@ import {
   Eye,
   EyeOff,
 
-  //lol
+  //lmao
 } from "lucide-react";
 import { endpoints } from "@/lib/api/splash-endpoints";
 import { useSessionStore } from "@/lib/stores/session";
