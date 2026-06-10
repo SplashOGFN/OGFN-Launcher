@@ -31,7 +31,7 @@ use std::ffi::{ CString };
 use windows::core::PCSTR;
 
 const CREATE_NO_WINDOW: u32 = 0x08000000;
-const BACKEND_URL: &str = "https://overpower-irritate-dealt.ngrok-free.dev";
+const BACKEND_URL: &str = env!("BACKEND_URL", "https://overpower-irritate-dealt.ngrok-free.dev");
 
 #[tauri::command]
 fn rich_presence(username: String, page: String) {
@@ -310,7 +310,7 @@ fn experience(
     Ok(true)
 }
 
-const BASE_URL: &str = "https://overpower-irritate-dealt.ngrok-free.dev ";
+const BASE_URL: &str = env!("BACKEND_URL", "https://overpower-irritate-dealt.ngrok-free.dev");
 
 #[derive(Debug, Deserialize, Clone)]
 struct ManifestFile {
@@ -648,7 +648,7 @@ pub fn run() {
     tauri::Builder
         ::default()
         .plugin(tauri_plugin_process::init())
-        .plugin(tauri_plugin_updater::Builder::new().build())
+        // .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_shell::init())

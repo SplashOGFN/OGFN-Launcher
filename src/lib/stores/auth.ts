@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 import type { User, AthenaProfile, CommonCore } from "@/lib/types";
 import { apiClient } from "@/lib/api/client";
 import { API_ENDPOINTS } from "@/lib/api/endpoints";
@@ -21,19 +21,6 @@ interface AuthActions {
 }
 
 type AuthStore = AuthState & AuthActions;
-
-const storage = {
-  getItem: (name: string) => {
-    const value = localStorage.getItem(name);
-    return value ? value : null;
-  },
-  setItem: (name: string, value: string) => {
-    localStorage.setItem(name, value);
-  },
-  removeItem: (name: string) => {
-    localStorage.removeItem(name);
-  },
-};
 
 export const useAuthStore = create<AuthStore>()(
   persist(
@@ -127,7 +114,11 @@ export const useAuthStore = create<AuthStore>()(
     }),
     {
       name: "splash-auth",
+<<<<<<< HEAD
       storage: storage as any,
+=======
+      storage: createJSONStorage(() => localStorage),
+>>>>>>> 6feae503997c688b92f634f49d5eb352a43ce471
       partialize: (state) => ({
         token: state.token,
         user: state.user,

@@ -1,7 +1,6 @@
-const BASE_URL =
-  process.env.NODE_ENV === "development"
-    ? "https://overpower-irritate-dealt.ngrok-free.dev"
-    : "https://overpower-irritate-dealt.ngrok-free.dev";
+import { API_URL } from "@/lib/config";
+
+const BASE_URL = API_URL;
 
 export const endpoints = {
   GET_BASE_URL: BASE_URL,

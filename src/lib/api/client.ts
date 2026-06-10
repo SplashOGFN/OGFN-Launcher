@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosError } from "axios";
+import { API_URL } from "@/lib/config";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://overpower-irritate-dealt.ngrok-free.dev";
+const BASE_URL = API_URL;
 
 export const apiClient: AxiosInstance = axios.create({
   baseURL: BASE_URL,

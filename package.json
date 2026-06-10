@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "tauri": "tauri"
+    "build:obfuscated": "set OBFUSCATE=true&& next build",
+    "tauri": "tauri",
+    "tauri:build": "npm run build && tauri build",
+    "lint": "next lint"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.4",
