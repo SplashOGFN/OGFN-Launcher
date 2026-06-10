@@ -42,11 +42,7 @@
   },
   "bundle": {
     "active": true,
-<<<<<<< HEAD
-    "targets": ["nsis", "msi"],
-=======
-    "targets": ["msi", "nsis"],
->>>>>>> 6feae503997c688b92f634f49d5eb352a43ce471
+    "targets": ["nsis"],
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
@@ -54,7 +50,7 @@
       "icons/icon.png",
       "icons/icon.ico"
     ],
-    "createUpdaterArtifacts": false,
+    "createUpdaterArtifacts": true,
     "windows": {
       "nsis": {
         "displayLanguageSelector": false,
