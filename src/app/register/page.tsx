@@ -70,11 +70,6 @@ export default function RegisterPage() {
           const welcomeAudio = new Audio(`${API_URL}/api/music/welcome.mp3`);
           welcomeAudio.volume = 0.5;
           welcomeAudio.play().catch(() => {});
-          const lobbyAudio = new Audio(`${API_URL}/api/music/lobby.mp3`);
-          lobbyAudio.loop = true;
-          lobbyAudio.currentTime = 35;
-          lobbyAudio.volume = 0.15;
-          lobbyAudio.play().catch(() => {});
           setTimeout(() => {
             welcomeAudio.pause();
             router.push("/home");
@@ -136,11 +131,6 @@ export default function RegisterPage() {
             const welcomeAudio = new Audio(`${API_URL}/api/music/welcome.mp3`);
             welcomeAudio.volume = 0.5;
             welcomeAudio.play().catch(() => {});
-            const lobbyAudio = new Audio(`${API_URL}/api/music/lobby.mp3`);
-            lobbyAudio.loop = true;
-            lobbyAudio.currentTime = 35;
-            lobbyAudio.volume = 0.15;
-            lobbyAudio.play().catch(() => {});
             setTimeout(() => {
               welcomeAudio.pause();
               router.push("/home");
@@ -225,11 +215,6 @@ export default function RegisterPage() {
       const welcomeAudio = new Audio(`${API_URL}/api/music/welcome.mp3`);
       welcomeAudio.volume = 0.5;
       welcomeAudio.play().catch(() => {});
-      const lobbyAudio = new Audio(`${API_URL}/api/music/lobby.mp3`);
-      lobbyAudio.loop = true;
-      lobbyAudio.currentTime = 35;
-      lobbyAudio.volume = 0.15;
-      lobbyAudio.play().catch(() => {});
       setTimeout(() => {
         welcomeAudio.pause();
         router.push("/home");

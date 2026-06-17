@@ -34,13 +34,8 @@ export default function SettingsPage() {
   const currentAvatar = mounted ? ((user as any)?.avatar || null) : null;
 
   const handleLogout = () => {
-    const goodbyeAudio = new Audio(`${API_URL}/api/music/welcome.mp3`);
-    goodbyeAudio.volume = 0.5;
-    goodbyeAudio.play().catch(() => {});
-    setTimeout(() => {
-      auth.logout();
-      router.push("/");
-    }, 2000);
+    auth.logout();
+    router.push("/");
   };
 
   const handleAvatarSave = async () => {

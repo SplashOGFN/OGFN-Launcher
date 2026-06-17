@@ -72,11 +72,7 @@ export const launchBuild = async (selectedPath: string, version: string) => {
       exchangeCode: exchangeCode,
       isDev: false,
       eor: buildstate.EorEnabled,
-      dpe: buildstate.DisablePreEdits,
-      ror: buildstate.ResetOnRelease,
       version,
-      eventPlaylist: null,
-      backendUrl: API_URL,
     });
 
     appWindow.minimize();

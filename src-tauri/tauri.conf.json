@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "Classified",
-  "version": "22.30.0",
+  "version": "1.0.0",
   "identifier": "com.classified.launcher",
   "build": {
     "frontendDist": "../out",
@@ -37,6 +37,7 @@
       "endpoints": [
         "http://127.0.0.1:3551/launcher/updater"
       ],
+      "dangerousInsecureTransportProtocol": true,
       "windows": {
         "installMode": "passive"
       }

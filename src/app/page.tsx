@@ -47,7 +47,6 @@ export default function LoginPage() {
   const [welcomeMessage, setWelcomeMessage] = useState<string | null>(null);
   const [welcomeUser, setWelcomeUser] = useState<string>("");
   const welcomeAudioRef = useRef<HTMLAudioElement | null>(null);
-  const lobbyAudioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const t = setTimeout(() => setShowSplash(false), 2500);
@@ -113,11 +112,6 @@ export default function LoginPage() {
             welcomeAudioRef.current = new Audio(`${API_URL}/api/music/welcome.mp3`);
             welcomeAudioRef.current.volume = 0.5;
             welcomeAudioRef.current.play().catch(() => {});
-            lobbyAudioRef.current = new Audio(`${API_URL}/api/music/lobby.mp3`);
-            lobbyAudioRef.current.loop = true;
-            lobbyAudioRef.current.currentTime = 35;
-            lobbyAudioRef.current.volume = 0.15;
-            lobbyAudioRef.current.play().catch(() => {});
             setTimeout(() => {
               if (welcomeAudioRef.current) welcomeAudioRef.current.pause();
               window.location.href = "/home";
@@ -167,23 +161,8 @@ export default function LoginPage() {
           welcomeAudioRef.current = new Audio(`${API_URL}/api/music/welcome.mp3`);
           welcomeAudioRef.current.volume = 0.5;
           welcomeAudioRef.current.play().catch(() => {});
-          lobbyAudioRef.current = new Audio(`${API_URL}/api/music/lobby.mp3`);
-          lobbyAudioRef.current.loop = true;
-          lobbyAudioRef.current.currentTime = 35;
-          lobbyAudioRef.current.volume = 0;
-          lobbyAudioRef.current.play().catch(() => {});
-          let fadeVol = 0;
-          const fadeInterval = setInterval(() => {
-            fadeVol += 0.005;
-            if (fadeVol >= 0.15) {
-              fadeVol = 0.15;
-              clearInterval(fadeInterval);
-            }
-            if (lobbyAudioRef.current) lobbyAudioRef.current.volume = fadeVol;
-          }, 100);
           setTimeout(() => {
             if (welcomeAudioRef.current) welcomeAudioRef.current.pause();
-            if (lobbyAudioRef.current) lobbyAudioRef.current.pause();
             window.location.href = "/home";
           }, 5000);
         } catch {
@@ -278,23 +257,8 @@ export default function LoginPage() {
       welcomeAudioRef.current = new Audio(`${API_URL}/api/music/welcome.mp3`);
       welcomeAudioRef.current.volume = 0.5;
       welcomeAudioRef.current.play().catch(() => {});
-      lobbyAudioRef.current = new Audio(`${API_URL}/api/music/lobby.mp3`);
-      lobbyAudioRef.current.loop = true;
-      lobbyAudioRef.current.currentTime = 35;
-      lobbyAudioRef.current.volume = 0;
-      lobbyAudioRef.current.play().catch(() => {});
-      let fadeVol = 0;
-      const fadeInterval = setInterval(() => {
-        fadeVol += 0.005;
-        if (fadeVol >= 0.15) {
-          fadeVol = 0.15;
-          clearInterval(fadeInterval);
-        }
-        if (lobbyAudioRef.current) lobbyAudioRef.current.volume = fadeVol;
-      }, 100);
       setTimeout(() => {
         if (welcomeAudioRef.current) welcomeAudioRef.current.pause();
-        if (lobbyAudioRef.current) lobbyAudioRef.current.pause();
         window.location.href = "/home";
       }, 5000);
     } else {

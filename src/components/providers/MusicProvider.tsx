@@ -1,15 +1,28 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import useMusicStore from "@/lib/stores/music";
 import { API_URL } from "@/lib/config";
 
+const AUTH_PATHS = ["/", "/register", "/splash/oauth/discord/callback"];
+
+function isAuthPage(path: string): boolean {
+  return AUTH_PATHS.includes(path) || path.startsWith("/splash/oauth");
+}
+
 export default function MusicProvider() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const pathname = usePathname();
   const { isPlaying, isMuted, volume, src, setPlaying } = useMusicStore();
 
+  // Manage audio element lifecycle
   useEffect(() => {
-    console.log("[Music] Creating audio for:", src);
+    if (!src) {
+      audioRef.current = null;
+      return;
+    }
+
     const audio = new Audio(src);
     audio.loop = true;
     audio.volume = volume;
@@ -17,21 +30,15 @@ export default function MusicProvider() {
     audioRef.current = audio;
 
     const handleCanPlay = () => {
-      console.log("[Music] canplaythrough event, attempting play");
-      audio.play().catch((err) => console.error("[Music] Play error:", err));
+      audio.play().catch(() => {});
       setPlaying(true);
     };
 
-    const handleError = (e: any) => {
-      console.error("[Music] Audio error:", e);
-    };
-
     audio.addEventListener("canplaythrough", handleCanPlay);
-    audio.addEventListener("error", handleError);
+    audio.addEventListener("error", () => {});
 
     return () => {
       audio.removeEventListener("canplaythrough", handleCanPlay);
-      audio.removeEventListener("error", handleError);
       audio.pause();
       audio.src = "";
     };
@@ -49,38 +56,42 @@ export default function MusicProvider() {
     }
   }, [isMuted]);
 
-  // Switch to lobby music when logged in, pause on logout
+  // Start/stop music based on current route + auth state
   useEffect(() => {
     const { setSrc } = useMusicStore.getState();
+    const token = localStorage.getItem("classified.auth.token");
+    const onAuthPage = isAuthPage(pathname);
 
-    const checkAuth = () => {
+    if (token && !onAuthPage) {
+      const currentSrc = useMusicStore.getState().src;
+      if (currentSrc !== `${API_URL}/api/music/lobby.mp3`) {
+        setSrc(`${API_URL}/api/music/lobby.mp3`);
+      }
+    } else {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        setPlaying(false);
+      }
+      const currentSrc = useMusicStore.getState().src;
+      if (currentSrc !== "") {
+        setSrc("");
+      }
+    }
+  }, [pathname, setPlaying]);
+
+  // Cross-tab logout via storage events
+  useEffect(() => {
+    const handleStorage = () => {
       const token = localStorage.getItem("classified.auth.token");
-      if (token) {
-        const currentSrc = useMusicStore.getState().src;
-        if (currentSrc !== `${API_URL}/api/music/lobby.mp3`) {
-          setSrc(`${API_URL}/api/music/lobby.mp3`);
-        }
-      } else {
-        if (audioRef.current) {
-          audioRef.current.pause();
-          setPlaying(false);
-        }
-        const currentSrc = useMusicStore.getState().src;
-        if (currentSrc !== `${API_URL}/api/music/background.mp3`) {
-          setSrc(`${API_URL}/api/music/background.mp3`);
-        }
+      const onAuthPage = isAuthPage(window.location.pathname);
+      if (!token || onAuthPage) {
+        useMusicStore.getState().setSrc("");
       }
     };
 
-    checkAuth();
-    window.addEventListener("storage", checkAuth);
-    const interval = setInterval(checkAuth, 2000);
-
-    return () => {
-      window.removeEventListener("storage", checkAuth);
-      clearInterval(interval);
-    };
-  }, [setPlaying]);
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
 
   return null;
 }

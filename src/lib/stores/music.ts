@@ -4,9 +4,8 @@ import { create } from "zustand";
 import { API_URL } from "@/lib/config";
 
 function getDefaultSrc(): string {
-  if (typeof window === "undefined") return `${API_URL}/api/music/background.mp3`;
-  // MusicProvider handles switching to lobby.mp3 when logged in — always start from background
-  return `${API_URL}/api/music/background.mp3`;
+  // No audio until user logs in — MusicProvider sets lobby music after auth
+  return "";
 }
 
 interface MusicState {
